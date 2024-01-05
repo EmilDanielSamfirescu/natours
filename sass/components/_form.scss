@@ -1,0 +1,111 @@
+.form{
+    &__group:not(:last-child){
+        margin-bottom: 1.25rem;
+    }
+
+    &__input {
+        font-family: inherit;
+        font-size: .9375rem;
+        color: inherit;
+        padding: .9375rem 1.25rem;
+        border-radius: 2px;
+        background-color: rgba($color-white, .5);
+        border: none;
+        border-bottom: 3px solid transparent;
+        width: 70%;
+        display: block;
+        margin: 0;
+        transition: all .4s;
+        cursor: pointer;
+
+        @include respond (tab-port) {
+            width: 100%;
+        }
+
+        &:focus{
+            outline: none;
+            box-shadow:  0 .625rem 1.25rem rgba($color-black, .1);
+            border-bottom: 3px solid $color-primary;
+        }
+
+        //per far capire all'utente quando il suo input inserito non è ancora valido
+        &:focus:invalid {
+            border-bottom: 3px solid $color-secondary-dark;
+        }
+
+        //Per dare style al placeholder
+        &::-webkit-input-placeholder{
+            color: $color-grey-dark-2;
+        }
+    }
+
+    &__label{
+        font-size: .75rem;
+        font-weight: 700;
+        margin-left: 1.25rem;
+        margin-top: .4375rem;
+        display: block;
+        transition: all .3s;
+    }
+    // :placeholder-shown -> rappresenta lo stato di un elemento di input quando il suo placeholder è visibile, cioè quando non c'è testo inserito nel campo di input
+    &__input:placeholder-shown ~ &__label{
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-2.5rem);
+    }
+
+    &__radio-group{
+        width: 49%;
+        display: inline-block;
+
+        @include respond (tab-port) {
+            width: 100%;
+            margin-bottom: 2.5rem;
+        }
+    }
+
+    &__radio-label{
+        font-size: $default-font-size;
+        cursor: pointer;
+        position: relative;
+        padding-left: 3.8125rem;
+    }
+
+    //customizzare il radio button
+
+    &__radio-input{
+        display: none;
+    }
+
+    //costruire il bordo del bottone
+    &__radio-button{
+        height: 1.875rem;
+        width: 1.875rem;
+        border: 5px solid $color-primary;
+        border-radius: 50%;
+        display: inline-block;
+        position: absolute;
+        top: -0.625rem;
+        left: 0;
+
+        //costruire l'interno del bottone
+        &::after{
+            content: '';
+            display: block;
+            height: .8125rem;
+            width: .8125rem;
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: $color-primary;
+            opacity: 0;
+            transition: all .2s;
+        }
+    }
+    //:checked utilizzato per selezionare gli elementi di input che sono stati selezionati o controllati
+    &__radio-input:checked ~ &__radio-label &__radio-button::after{
+        opacity: 1;
+    }
+}

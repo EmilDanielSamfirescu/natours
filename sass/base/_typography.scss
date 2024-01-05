@@ -1,0 +1,88 @@
+body {
+    font-family: Lato, sans-serif;
+    font-weight: 400;
+    font-size: $default-font-size;
+    line-height: 1.7;
+    color: $color-grey-dark;
+}
+
+.heading-primary{
+    color: $color-white;
+    text-transform: uppercase;
+    margin-bottom: 3.75rem;
+    /* Per impedire un leggero shake dell'animazione */
+    backface-visibility: hidden;
+
+    &--main {
+        display: block;
+        font-size: 3.75rem;
+        font-weight: 400;
+        letter-spacing: 2.1875rem;
+    
+        animation-name: moveInLeft;
+        animation-duration: 1s;
+        animation-timing-function: ease-in;
+
+        @include respond(phone) {
+            letter-spacing: 16px;
+            font-size: 3.125rem;
+        }
+    }
+    
+    &--sub {
+        display: block;
+        font-size: 1.25rem;
+        font-weight: 400;
+        letter-spacing: 1.0437rem;
+    
+        animation-name: moveInRight;
+        animation-duration: 1s;
+        animation-timing-function: ease-in;
+
+        @include respond(phone) {
+            letter-spacing: 1rem;
+            font-size: 1rem;
+        }
+    }
+}
+
+.heading-secondary {
+    font-size: 2.1875rem;
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: .125rem;
+    // per endere la scritta colorata in gradient
+    display: inline-block;
+    background-image: linear-gradient(to right, $color-primary-light, $color-primary-dark);
+    -webkit-background-clip: text;
+    color: transparent;
+    
+    transition: all .2s;
+
+    @include respond(tab-port) {
+        font-size: 1.875rem;
+    }
+
+    @include respond(phone) {
+        font-size: 1.5625rem;
+    }
+
+    &:hover{
+        transform: skewY(3deg) skewX(15deg) scale(1.1);
+        text-shadow: .3125rem .625rem 1.25rem rgba($color-black, 0.2);
+    }
+}
+
+.heading-tertiary {
+    font-size: $default-font-size;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.paragraph {
+    font-size: 1rem;
+
+    &:not(:last-child){
+        margin-bottom: 1.875rem;
+    }
+}

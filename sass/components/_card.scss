@@ -1,0 +1,241 @@
+.card{
+//Functionality
+
+    // prospettiva della rotazione: deve essere molto alto il valore altrimenti non rende
+    perspective: 93.75rem;
+    // perchè funzioni anche su mozilla
+    -moz-perspective: 1500px;
+
+    cursor: pointer;
+    position: relative;
+    //stessa altezza delle due facciate per mantere funzionante la prospettiva
+    height: 32.5rem;
+    
+
+    &__side{
+        height: 32.5rem;
+        transition: all .8s;
+        position: absolute;
+        top: 0;
+        left: 0;
+        //per stabilizzare la larghezza di entrambi i fronti dato che si adatta al contenuto
+        width: 100%;
+        //Nasconde la parte posteriore di un elemento
+        backface-visibility: hidden;
+        border-radius: 3px;
+        overflow: hidden;
+        box-shadow: 0 .9375rem 40px rgba($color-black, .15);
+
+        &--front{
+            background-color: $color-white;
+        }
+
+        &--back{
+            // Deve essere già ruotato di 180 di default
+            transform: rotateY(180deg);
+
+            &-1{
+                background-image: 
+                linear-gradient(to right bottom, 
+                $color-secondary-light, $color-secondary-dark );
+            }
+
+            &-2{
+                background-image: 
+                linear-gradient(to right bottom, 
+                $color-primary-light, $color-primary-dark );
+            }
+
+            &-3{
+                background-image: 
+                linear-gradient(to right bottom, 
+                $color-tertiary-light, $color-tertiary-dark );
+            }
+        }
+    }
+
+    &:hover &__side--front{
+        //Per far girare nella direzione opposta
+        transform: rotateY(-180deg);
+    }
+
+    &:hover &__side--back{
+        //Blocca la rotazione altrimenti tornerebbe inverso
+        transform: rotateY(0deg);
+    }
+
+    //Frontsidie style
+    &__picture{
+        background-size: cover;
+        height: 14.375rem;
+        //imposta come le immagini di sfondo di un elemento dovrebbero mescolarsi tra loro e con il colore di sfondo dell'elemento
+        background-blend-mode: screen;
+
+        clip-path: polygon(0 0, 100% 0, 100% 85%, 0% 100%);
+        //Per farlofunzionare su tutti i browser dato che è nuova come funzionalità
+        -webkit-clip-path: polygon(0 0, 100% 0, 100% 85%, 0% 100%);
+
+        &--1{
+            background-image:
+            linear-gradient(to right bottom, 
+            $color-secondary-light, $color-secondary-dark), 
+            url('../img/nat-5.jpg');
+        }
+
+        &--2{
+            background-image: linear-gradient(to right bottom, 
+            $color-primary-light, $color-primary-dark), url('../img/nat-6.jpg');
+        }
+
+        &--3{
+            background-image: linear-gradient(to right bottom, 
+            $color-tertiary-light, $color-tertiary-dark), url('../img/nat-7.jpg');
+        }
+    }
+
+    &__heading {
+        font-size: 1.75rem;
+        font-weight: 300;
+        text-transform: uppercase;
+        color:$color-white ;
+        position: absolute;
+        top: 7.5rem;
+        right: 1.25rem;
+        text-align: right;
+        width: 75%;
+    }
+
+    &__heading-span{
+        padding: .5rem .9375rem ;
+        //per far si che i padding vengano applicati ai lati anche se una riga va a capo
+        -webkit-box-decoration-break: clone;
+        box-decoration-break: clone;
+        &--1{
+            background-image: 
+            linear-gradient(to right bottom, 
+            rgba($color-secondary-light, .85), 
+            rgba($color-secondary-dark, .85));
+        }
+
+        &--2{
+            background-image: 
+            linear-gradient(to right bottom, 
+            rgba($color-primary-light, .85), 
+            rgba($color-primary-dark, .85));
+        }
+
+        &--3{
+            background-image: 
+            linear-gradient(to right bottom, 
+            rgba($color-tertiary-light, .85), 
+            rgba($color-tertiary-dark, .85));
+        }
+    }
+
+    &__details{
+        padding: 1.875rem;
+        ul{
+            list-style: none;
+            width: 80%;
+            margin: 0 auto;
+
+            li{
+                text-align: center;
+                font-size: .875rem;
+                padding: .625rem;
+
+                &:not(:last-child) {
+                    border-bottom: 1px solid $color-grey-light-2;
+                }
+            }
+        }
+    }
+
+    //Backside style 
+    &__cta{
+        position: absolute;
+        text-align: center;
+
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 90%;
+    }
+
+    &__price-box{
+        text-align: center;
+        margin-bottom: 5rem;
+        color: $color-white;
+    }
+
+    &__price-only{
+        font-size: .875rem;
+        text-transform: uppercase;
+    }
+
+    &__price-value{
+        font-size: 3.75rem;
+        font-weight: 100;
+    }
+
+    
+
+    @include respond(tab-port) {
+        //Functionality
+    height: auto;
+    border-radius: 3px;
+    background-color: $color-white;
+    box-shadow: 0 .9375rem 40px rgba($color-black, .15);    
+
+    &__side{
+        height: auto;
+        position: relative;
+        padding-bottom: 0;
+        box-shadow: none;
+        
+
+        &--back{
+            transform: rotateY(0deg);
+            clip-path: polygon(0 25%, 100% 0, 100% 100%, 0% 100%);
+        }
+    }
+
+    &:hover &__side--front{
+        transform: rotateY(0deg);
+    }
+
+    &__picture{
+        height: 30rem;
+    }
+
+    &__details{
+        padding:  .625rem 1.875rem;
+        ul {
+            li{
+                font-size: 1.875rem;
+            }
+        }
+    }
+
+    &__heading {
+        font-size: 3.75rem;
+    }
+
+    //Backside style 
+    &__cta{
+        position: relative;
+        top: 0%;
+        left: 0%;
+        transform: translate(0);
+        padding: 4.375rem 2.5rem 3.5rem 2.5rem;
+    }
+
+    &__price-box{
+        margin-bottom: 1.875rem;
+    }
+
+    &__price-value{
+        font-size: 3.75rem;
+    }
+    }
+}

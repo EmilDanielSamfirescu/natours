@@ -1,0 +1,178 @@
+.navigation {
+    &__checkbox {
+        display: none;
+    }
+
+    //creo un bottone che copra in posizione e dimensione il background
+    &__button {
+        background-color: $color-white;
+        height: 4.375rem;
+        width: 4.375rem;
+        position: fixed;
+        top: 3.75rem;
+        right: 3.75rem;
+        border-radius: 50%;
+        z-index: 20;
+        box-shadow: 0 1rem 3rem rgba($color-black, .1);
+        text-align: center;
+        cursor: pointer;
+
+        @include respond(tab-port){
+            top: 1.75rem;
+            right: 1.75rem;
+        }
+    }
+
+    //creo il principio di background sotto il bottone. Quello che succederà è che usando lo scale() diventerà come lo schermo
+    &__background {
+        height: 3.75rem;
+        width: 3.75rem;
+        border-radius: 50%;
+        position: fixed;
+        top: 4.0625rem;
+        right: 4.0625rem;
+        //radial-gradient() è come il linear ma parte da un punto centrale e si irradia
+        background-image: radial-gradient($color-primary-light, $color-primary-dark);
+        z-index: 10;
+        //vedi easing.net o cubic-bezier.com per customizzarli
+        transition: transform .8s cubic-bezier(0.83, 0, 0.17, 1);
+
+        @include respond(tab-port){
+            top: 2rem;
+            right: 2rem;
+        }
+    }
+
+    //la seione che coprirà tutto lo schermo
+    &__nav {
+        height: 100vh;
+        // width: 100%;
+        //perchè deve coprire tutto lo schermo anche se scrolli
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 15;
+        //per nascondere la nav inizialmente
+        opacity: 0;
+        //se lasci al 100% grazie all'opacità non si vedono, ma i link sono sempre attivi
+        width: 0;
+        //in questo caso essendo che il cubic va oltre il 100%, fa l'effetto di tornare in dietro 
+        transition: all .8s cubic-bezier(0.83, -0.55, 0.265, 1.55);
+    }
+
+    &__list {
+        position: absolute;
+        @include centered;
+        list-style: none;
+        text-align: center;
+        width: 100%;
+    }
+
+    &__item {
+        margin: 1.25rem;
+    }
+
+    &__link {
+        &:link,
+        &:visited {
+            display: inline-block;
+            font-size: 1.875rem;
+            font-weight: 300;
+            padding: .625rem 1.25rem;
+            color: $color-white;
+            text-decoration: none;
+            text-transform: uppercase;
+            // animazione link
+            background-image: 
+            linear-gradient(120deg,
+            transparent 0%, 
+                transparent 50%
+                , $color-white 50%);
+            background-size: 230%;
+            transition: all .5s;
+        }
+        
+        &:hover,
+        &:active {
+            background-position: 100%;
+            color: $color-primary;
+            transform: translateX(1rem);
+        }
+    }
+
+    //Functionality
+
+    //se la check è segnata, il fratello scala 80
+    //~ sta per fratello generale
+    &__checkbox:checked ~ &__background {
+        transform: scale(80);
+    }
+
+    &__checkbox:checked ~ &__nav {
+        //per visualizzare di nuovo la nav
+        opacity: 1;
+        //per rendere di nuovo attivi i link
+        width: 100%;
+    }
+
+    //icon
+    &__icon{
+        position: relative;
+        margin-top: 2.125rem;
+
+        &,
+        &::before,
+        &::after{
+            width: 1.875rem;
+            height: 2px;
+            background-color: $color-grey-dark;
+            display: inline-block;
+        }
+
+        &::before,
+        &::after{
+            content: '';
+            position: absolute;
+            left: 0;
+            transition: all .2s;
+            backface-visibility: hidden;
+
+        }
+
+        &::before{
+            top: -.5rem;
+        }
+        &::after{
+            top: .5rem;
+        }
+    }
+
+    &__button:hover &__icon::before{
+        top: -.625rem;
+    }
+
+    &__button:hover &__icon::after{
+        top: .625rem;
+    }
+
+    //quando la check e segnata, seleziono il bottone che seleziona l'icona
+    &__checkbox:checked + &__button &__icon {
+        //rendo invisibile la riga centrale
+        background-color: transparent;
+    }
+
+    //ruoto le due righe di after e before in direzioni opposte e li riporto in posizione centrale
+    &__checkbox:checked + &__button &__icon::before {
+        top: 0;
+        //ruoto di 180deg - 45 per un effetto più particolare
+        transform: rotate(135deg);
+    }
+
+    &__checkbox:checked + &__button &__icon::after {
+        top: 0;
+        //ruoto di 180deg - 45 per un effetto più particolare
+        transform: rotate(-135deg);
+    }
+
+}
+

@@ -1,0 +1,59 @@
+@mixin clearfix {
+    &::after{
+        content: "";
+        display: table;
+        clear: both;
+    }
+}
+
+@mixin centered {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/*
+0 - 600px phone
+600px  - 900px tablet 
+900px  - 1200px tablet orizontal
+1200px  - 1800px Desktop
+1800px + Big Desktop
+*/
+
+/*
+MEDIA QUERY MANAGER
+*/
+
+//modo finale per fale le media query con sass
+/*
+$brakpoint argument choises:
+- phone
+- tab-port
+- tab-land
+- big-desktop
+*/
+@mixin respond($brakpoint) {
+    @if $brakpoint == phone {
+        @media (max-width: 37.5rem) { @content }; // 600
+    }
+    @if $brakpoint == tab-port {
+        @media (max-width: 56.25rem) { @content }; //900
+    }
+    @if $brakpoint == tab-land {
+        @media (max-width: 75rem) { @content }; //1200
+    }
+    @if $brakpoint == big-desktop {
+        //min-width: 1800px perchè è dal 1800 in po sarà valido
+        @media (min-width: 112.5rem) { @content }; //+1800
+    }
+}
+
+//secondo modo per farlo dopo quello imparato in boolean
+
+// @mixin responde-phone {
+//     @media (max-width: 600px) 
+//     //{ @content } si riferice al contenuto che immetti nel mixin
+//     { @content };
+// }
+
+

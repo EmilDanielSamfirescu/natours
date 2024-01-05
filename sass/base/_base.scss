@@ -1,0 +1,41 @@
+/* 
+RESET
+*/
+*,
+*::after,
+*::before {
+    margin: 0 auto;
+    padding: 0;
+}
+
+html {
+
+    font-size: $default-font-size;
+
+
+    //l'ordine della media query è sempre dalla più grande alla più piccola per problemi di conflitti
+    @include respond(big-desktop) {
+        font-size: 100%;
+    }
+
+    @include respond(tab-land) { // with < 1200
+        font-size: 90%;
+    }
+
+    @include respond(tab-port) { // with < 900
+        font-size: 60%;
+    }
+
+    @include respond(phone) {
+        font-size: 50%;
+    }
+}
+
+body{
+    box-sizing: border-box;
+    padding: 1.875rem;
+
+    @include respond(tab-port) {
+        padding: 0rem;
+    }
+}
